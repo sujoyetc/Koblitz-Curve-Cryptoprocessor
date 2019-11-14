@@ -1,0 +1,158 @@
+/users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/sbm16.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/sbm16.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module sb16
+
+Top level modules:
+	sb16
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ecsm_fsm.vhd {1 {vcom -work work -2002 -explicit -vopt /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ecsm_fsm.vhd
+Model Technology ModelSim SE vcom 6.6d Compiler 2010.11 Nov  1 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Loading package math_real
+-- Loading package settings
+-- Compiling entity ecsm_fsm
+-- Compiling architecture rtl of ecsm_fsm
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/header.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/header.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module binary_adder
+-- Compiling module adder_subtracter
+-- Compiling module mux2
+
+Top level modules:
+	binary_adder
+	adder_subtracter
+	mux2
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/program_rom.vhd {1 {vcom -work work -2002 -explicit -vopt /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/program_rom.vhd
+Model Technology ModelSim SE vcom 6.6d Compiler 2010.11 Nov  1 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Loading package math_real
+-- Loading package settings
+-- Compiling entity program_rom
+-- Compiling architecture rtl of program_rom
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/inversion_rom.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/inversion_rom.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module inversion_rom
+
+Top level modules:
+	inversion_rom
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/primitive1.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/primitive1.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module primitives
+
+Top level modules:
+	primitives
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/top_ALU.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/top_ALU.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module top_ALU
+
+Top level modules:
+	top_ALU
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/top_primitives.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/top_primitives.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module top_primitives
+
+Top level modules:
+	top_primitives
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/scalarconv_top.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/scalarconv_top.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module scalarconv_top
+
+Top level modules:
+	scalarconv_top
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/instruction_decoder.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/instruction_decoder.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module instruction_decoder
+
+Top level modules:
+	instruction_decoder
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ADDRESS_BLOCK.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ADDRESS_BLOCK.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module addressb
+
+Top level modules:
+	addressb
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/processor.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/processor.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module processor
+
+Top level modules:
+	processor
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ecsm_processor.vhd {1 {vcom -work work -2002 -explicit -vopt /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ecsm_processor.vhd
+Model Technology ModelSim SE vcom 6.6d Compiler 2010.11 Nov  1 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Loading package math_real
+-- Loading package settings
+-- Compiling entity ecsm_processor
+-- Compiling architecture structural of ecsm_processor
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/scalarconv_tnaf.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/scalarconv_tnaf.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module scalarconv_tnaf
+
+Top level modules:
+	scalarconv_tnaf
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/settings.vhd {1 {vcom -work work -2002 -explicit -vopt /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/settings.vhd
+Model Technology ModelSim SE vcom 6.6d Compiler 2010.11 Nov  1 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Loading package math_real
+-- Compiling package settings
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/inversion_new.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/inversion_new.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module inversion_new
+
+Top level modules:
+	inversion_new
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ROM1.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ROM1.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module ROM1
+
+Top level modules:
+	ROM1
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ram_verilog.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ram_verilog.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module ram_verilog
+
+Top level modules:
+	ram_verilog
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ecsm_processor_tb.vhd {1 {vcom -work work -2002 -explicit -vopt /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ecsm_processor_tb.vhd
+Model Technology ModelSim SE vcom 6.6d Compiler 2010.11 Nov  1 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Loading package math_real
+-- Loading package settings
+-- Compiling entity ecsm_processor_tb
+-- Compiling architecture testbench of ecsm_processor_tb
+
+} {} {}} /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ROM2.v {1 {vlog -work work -vopt -nocovercells /users/cosic/ssinharo/Downloads/kimmo/Koblitz_curve_processor_codes_CHES2015/Verilog/ROM2.v
+Model Technology ModelSim SE vlog 6.6d Compiler 2010.11 Nov  1 2010
+-- Compiling module ROM2
+
+Top level modules:
+	ROM2
+
+} {} {}}

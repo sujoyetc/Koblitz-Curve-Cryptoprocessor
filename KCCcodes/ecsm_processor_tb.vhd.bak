@@ -1,0 +1,256 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.math_real.all;
+
+library work;
+use work.settings.all;
+
+entity ecsm_processor_tb is
+end ecsm_processor_tb;
+
+architecture testbench of ecsm_processor_tb is
+
+   constant CLK_PERIOD : time := 10 ns;
+
+   component ecsm_processor is
+	   port (
+		   clk			: in  std_logic;
+		   rst			: in	std_logic;
+		   -- uC signals
+		   en_ecsm		: in  std_logic;
+		   done_ecsm	: out std_logic;
+		   -- RAM signals
+		   addr			: out std_logic_vector(7 downto 0);
+		   doutb			: in  std_logic_vector(15 downto 0);
+		   dina			: out std_logic_vector(15 downto 0);
+		   wea			: out std_logic);
+   end component ecsm_processor;
+
+   type mem_type is array(0 to 255) of std_logic_vector(15 downto 0);
+   signal mem : mem_type;
+   signal raddra, raddrb : std_logic_vector(7 downto 0);
+
+   signal clk, rst, en_ecsm, done_ecsm, wea, web : std_logic;
+   signal addra, addrb : std_logic_vector(7 downto 0);
+   signal dina,dinb,douta,doutb : std_logic_vector(15 downto 0);
+
+   constant px : std_logic_vector(287 downto 0) := x"0503213f78ca44883f1a3b8162f188e553cd265f23c1567a16876913b0c2ac2458492836";
+   constant py : std_logic_vector(287 downto 0) := x"01ccda380f1c9e318d90f95d07e5426fe87e45c0e8184698e45962364e34116177dd2259";
+
+   type testvector_type is array(0 to 14) of std_logic_vector(287 downto 0);
+   constant k : testvector_type := (x"01ced0e9aef793f9b3e9160b7e11af14ac7e7decaaed72f8ae56f500f339921f41d13b15",
+                                    x"000000000000000000000000000000000000000000000000000000000000000000000002",
+                                    x"000000000000000000000000000000000000000000000000000000000000000000000003",
+                                    x"016ea47e7a024204f7c1bd874da5e709d4713d60c8a70639eb1167b367a9c3787c65c1e5",
+                                    x"0143c9116f25e2a25a92118719c78df48f4ff31e78de58575487ce1eaf19922ad9b8a714",
+                                    x"005f82a803983ca8ea7e9d498c778ea6eb2083e6ce164dba0ff18e0242af9fc385776e9a",
+                                    x"00012b95a0116be5ab0c1681c8f8e3d0d3290a4cb5d32b1666194cb1d71037d1b83e90ec", 
+                                    x"018a2386cc45782198a6416d1775336d71eacd0549a3e80e966e12778c1745a79a6a5f92",
+                                    x"0021c3852fcd81b5d24bace4307bf3262f1205544a5308cc3dfabc08935ddd725129fb7c",
+                                    x"011a3fd4864a7a50b48d73f1d67e55fd642bfa42aef9c00b8a64c1b9d450fe4aec4f217b",
+				                            x"009d7d07466df560619e64da23300aa37990a9829c91b16a71241e02d9e46a0f2260b381",
+				                            x"009290d029b61890b6ecbfa7f62f036b385a46417fb7e3f7476622f27a8e0739e4bc8d1d",
+				                            x"001b6ebef2c3a129f42feb8abc6d67125ced3f6520a5678cddc7bbca445cd323423a9ada",
+				                            x"00fd53a398e0d1330f47c5bd8ef9746d8f2bfe294ab7769b473d8b10806b43d252b53a2b",
+				                            x"0068b1001b90ca583094d7be77a2f66a13a308e403a7727a14b5181db60dada2bb3076a7");
+												
+   constant Qx : testvector_type := (x"0302893705bf540889fcd5289d4065fe4c4b5c51e25e5a6aad58cc23884388c504bd697f",
+				                            x"030ae969b9792d44bfdae086dc6fa1039e52a459a545e78b57a1c9d749c1dc6faeaf80cf",
+                                    x"015dccc30a8b1f5146412d51fec337741090321408aac521391ad36c5912e280124fe3b5",
+                                    x"071821faba5195d1447ddcc734d493e4e8b0327b2e3709072263303d92bc3424ac74c81a",
+                                    x"06b974862a2babc76154e5f8cedddc86e1dcb0482a8ea621a6a0cbf47d2f63cda027c9bc",
+                                    x"04e5e56c8bd92e6c9a9264983c58535cd656fafcf87bf0927d07923ae564cb81ebfd9235",
+                                    x"06a530edec67f3f879365afceb0d74abd6f38b658b45875e85bd18ad72de4f1f9da34f3e",
+                                    x"023561dc912284545aa220d95bca79048d1187698dc07f05e9635b752215934d68e49552",
+                                    x"013da5722c09434e4307974b460b37847ca28c11029898d980e0fd7f24f180d1101c22fb",
+                                    x"00e76798b8861e243d376f9308ba95076f8a498bb92f1a83561a4993304c7d87f6cde454",
+				                            x"013c8634cffc5901f9268ff9c4a58b00fac4ee39e1ac26374cfe443f586e8247e79b4633",
+				                            x"0692cd37fba1e9920d9a85f4bbbf0f6a9ac9762419d655f9bd15e39786f75fafe661a5ad",
+				                            x"00e43758132fe748e5cb84e967a4d393599fb0e348d852844b5daa59a55e0e94413680e8",
+				                            x"01a8deaf3950dd5b610ec0f4ad631df60482ef4ea69643b72771ce5e8426b70badd3ba89",
+				                            x"025eecd549159e9cf8f4fe96c54233b3c74642f90d9075b14101ee866d02e1a71e67e86f");
+												
+   constant Qy : testvector_type := (x"06b068f10e513037c635fb767456f5fabaaa2067f05b240e56034a12a8dd51cfed45e05e",
+	                                  x"059d726aa1b70c5e9ffa46d6a1f912b31480bc3d8e0cab1666497f16b970256427b2fc02", 
+                                    x"053fc9bed137312952ad97f6a98c4c7ac1b421635fbafe28898e9213d979d5b4d279f192",
+                                    x"01167cc67f3806828da628e8dd5d76d81b148e161d9dd4ce2b15b1a12ea01616388c9660",
+                                    x"053e6ef060931a4d2dd3eb0691134fa74adf928fd65bdb63a5b60d380d40e60a48664513",
+                                    x"039d4d381b1cd0819a4fc18269170dea7e35f804037b6e7fefee1769c7520b238d9b7b79",
+                                    x"00487fa150e84b3f6cc67ae46ab53925ca8d7adb07d4baad86219cf03285a8625de15ff7",
+                                    x"00123639cce0a60692466c117dbb3d237e4a1d9a4a434680d3419b8916e4c9078d68fed2",
+                                    x"00c8a1be3436f675d95b9e11fe8d4e12ec99ba91a2f93fe033e747414bed2293914322f1",
+                                    x"052fc053695c4f90732e2c5ad4b3c18e88e153359155f0999ee7804cca633fa988914e8d",
+				                            x"01f4c1491e9d51739e1a7be51f5f5eb183656e7595d5c99e4ed6968a78420fade0bc7e23",
+				                            x"0246b376dcf526185bb509590b1b447ef2cdadc24404d69a951d22a95cb93f4aa629e04c",
+				                            x"01385d23eb0dc76425c27b65da021e5028a03d3d9df88ac22412039fba071ebc00331c92",
+				                            x"015523f265332d6fac758d1a3ed06ae36a81468fce724fef18d605a487a73ee81bc3b20a",
+				                            x"035ce172dfc6feca0c6fcd0b350e7517984012fe15c4bcb77d7887e8b25b3b0e66473e53");
+												
+
+												
+												
+--   constant r : testvector_type := (x"000000000000000000000000000000000000000000000000000000000000000000005132",
+--                                    x"000000000000000000000000000000000000000000000000000000000000000000001323",
+--                                    x"000000000000000000000000000000000000000000000000000000000000000000004612",
+--                                    x"0000000000000000000000000000000000000000000000000000000000000000000045b6",
+--                                    x"000000000000000000000000000000000000000000000000000000000000000000006464",
+--                                    x"00000000000000000000000000000000000000000000000000000000000000000000456a",
+--                                    x"000000000000000000000000000000000000000000000000000000000000000000009a31",
+--                                    x"000000000000000000000000000000000000000000000000000000000000000000001111",
+--                                    x"00000000000000000000000000000000000000000000000000000000000000000000ffff",
+--                                    x"000000000000000000000000000000000000000000000000000000000000000000002222");
+
+   constant r : testvector_type := (x"021564862131564864261231564564864879231231263549674646213156498789765132",
+                                    x"057978463123123415648745612313218789796423123153156456456456432188231323",
+                                    x"072846864aa684864f6512313f486213131c3121564b864686213a124864aa3135464612",
+                                    x"04564a65456456c64867d65432e324e56e465e465e43243212313564a6545243213245b6",
+                                    x"06a456421a356e4423121f231234456c46564564c65c465d234a4654a456231c32456464",
+                                    x"013a123a3456789a7321e1231234657655642c41245646d434354d56456456b46456456a",
+                                    x"079a2312a3486786786d4867876e7654e8e767e867e86e7654d5646343b5b44546879a31",
+                                    x"011111111111111111111111111111111111111111111111111111111111111111111111",
+                                    x"07ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                                    x"022222222222222222222222222222222222222222222222222222222222222222222222",
+	                            x"013a123a3456789a7321e1231234657655642c41245646d434354d56456456b46456456a",
+                                    x"079a2312a3486786786d4867876e7654e8e767e867e86e7654d5646343b5b44546879a31",
+                                    x"011111111111111111111111111111111111111111111111111111111111111111111111",
+                                    x"07ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                                    x"022222222222222222222222222222222222222222222222222222222222222222222222");
+
+   signal rx,ry : std_logic_vector(287 downto 0);
+
+begin
+
+   oscillator : process
+   begin
+      clk <= '0';      
+      while true loop
+         wait for CLK_PERIOD/2;
+         clk <= not(clk);
+      end loop;         
+   end process oscillator;
+
+   uut : ecsm_processor
+      port map (clk,rst,en_ecsm,done_ecsm,addra,douta,dina,wea);
+
+   ram : process (clk,rst)
+   begin
+      if rising_edge(clk) then
+         if wea = '1' then
+            mem(to_integer(unsigned(addra))) <= dina;
+            douta <= dina;
+         else
+            douta <= mem(to_integer(unsigned(addra)));
+         end if;
+         if web = '1' then
+            mem(to_integer(unsigned(addrb))) <= dinb;
+            doutb <= dinb;
+         else      
+            doutb <= mem(to_integer(unsigned(addrb)));     
+         end if;                  
+      end if;
+   end process ram;
+
+   tb : process
+   begin
+
+      en_ecsm <= '0';
+      web <= '0';
+      dinb <= (others => '0');
+      addrb <= (others => '0');
+
+      rst <= '1';
+      
+      wait for 5*CLK_PERIOD;
+
+      rst <= '0';
+
+      wait for CLK_PERIOD;
+
+      for tv in 0 to 14 loop
+
+         web <= '1';
+         for i in 0 to 17 loop
+            -- X coordinate
+            dinb <= px((i+1)*16-1 downto i*16);
+            addrb <= std_logic_vector(to_unsigned(180+i,8));
+            wait for CLK_PERIOD;
+            -- Y coordinate
+            dinb <= py((i+1)*16-1 downto i*16);
+            addrb <= std_logic_vector(to_unsigned(198+i,8));
+            wait for CLK_PERIOD;
+            -- "Random" Z coordinate
+            dinb <= r(tv)((i+1)*16-1 downto i*16);
+            addrb <= std_logic_vector(to_unsigned(216+i,8));
+            wait for CLK_PERIOD;
+            -- Scalar
+            dinb <= k(tv)((i+1)*16-1 downto i*16);
+            addrb <= std_logic_vector(to_unsigned(i,8));
+            wait for CLK_PERIOD;
+         end loop;
+         --dinb <= x"0001";
+         --addrb <= std_logic_vector(to_unsigned(216,8));
+         --wait for CLK_PERIOD;
+         web <= '0';
+         wait for CLK_PERIOD;
+         en_ecsm <= '1';
+         wait for CLK_PERIOD;
+         en_ecsm <= '0';
+         wait for CLK_PERIOD;
+         while done_ecsm = '0' loop
+            wait for CLK_PERIOD;
+         end loop;
+
+         web <= '0';
+         addrb <= std_logic_vector(to_unsigned(180,8));
+         wait for CLK_PERIOD;
+         for i in 1 to 17 loop            
+            addrb <= std_logic_vector(to_unsigned(180+i,8));
+            rx(i*16-1 downto (i-1)*16) <= doutb;
+            wait for CLK_PERIOD;
+         end loop;
+         rx(287 downto 272) <= doutb;
+         addrb <= std_logic_vector(to_unsigned(198,8));
+         wait for CLK_PERIOD;
+         for i in 1 to 17 loop            
+            addrb <= std_logic_vector(to_unsigned(198+i,8));
+            ry(i*16-1 downto (i-1)*16) <= doutb;
+            wait for CLK_PERIOD;
+         end loop;
+         ry(287 downto 272) <= doutb;
+
+         wait for CLK_PERIOD;
+
+         assert rx = Qx(tv)
+            report "Incorrect x coordinate!!!"
+            severity error;
+         assert ry = Qy(tv)
+            report "Incorrect y coordinate!!!"
+            severity error;
+
+         assert false
+            report "Scalar multiplication ready"
+            severity note;
+
+
+         wait for CLK_PERIOD;
+         rst <= '1';
+         wait for 4*CLK_PERIOD;
+         rst <= '0';
+
+         --wait for 2*CLK_PERIOD;
+         
+
+      end loop;
+
+      assert false
+         report "Test ended."
+         severity note;     
+
+      wait;
+
+   end process tb;
+
+end testbench;
+
+
