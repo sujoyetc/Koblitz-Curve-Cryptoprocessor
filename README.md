@@ -2,7 +2,6 @@
 Lightweight Koblitz Curve Crypto Processor for GF(2^283)
 
 ------------------------------------------------------------------------------
-The developer of this source code is Sujoy Sinha Roy.
 
 The codes are for academic research use only and does not come with any support or any responsibility. 
 More information is available in the license and Readme files.
